@@ -1,12 +1,13 @@
-"use client"
+"use client";
 
-import SolarSystem from "@/components/solar-system"
+import HeaderTitle from "@/components/HeaderTitle";
+import SolarSystem from "@/components/solar-system";
 
 export default function Home() {
   return (
-    <main className="w-full h-screen">
+    <main className="w-full h-screen relative bg-black overflow-hidden">
+      <HeaderTitle />
       <SolarSystem />
     </main>
-  )
+  );
 }
-
