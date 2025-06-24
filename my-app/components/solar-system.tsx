@@ -15,6 +15,7 @@ import PerformanceMonitor from "./performance-monitor"
 import FullscreenButton from "./fullscreen-button"
 import LoadingScreen from "./loading-screen"
 import AudioButton from "./audio-button"
+import ApodCard from "@/components/nasa/ApodCard"
 
 export default function SolarSystem() {
     const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null)
@@ -64,6 +65,8 @@ export default function SolarSystem() {
             setSelectedSun(null)
         }, 300)
     }
+    const [isApodVisible, setIsApodVisible] = useState(true)
+
 
     return (
         <div className="relative w-full h-full">
@@ -106,6 +109,21 @@ export default function SolarSystem() {
                     maxDistance={100}
                 />
             </Canvas>
+                {/* NASA Astronomy Picture of the Day card */}
+            {isApodVisible && <ApodCard onClose={() => setIsApodVisible(false)} />} 
+
+            
+            {/* Si masquée → affiche un bouton de réouverture */}
+            {!isApodVisible && (
+            <button
+                onClick={() => setIsApodVisible(true)}
+                className="fixed bottom-4 right-4 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
+                title="Réouvrir l'image APOD"
+            >
+                📸 Ouvrir l'image du jour
+            </button>
+            )}
+
 
             <Legend />
 
