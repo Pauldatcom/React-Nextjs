@@ -17,6 +17,9 @@ import LoadingScreen from "./loading-screen"
 import AudioButton from "./audio-button"
 import ApodCard from "@/components/nasa/ApodCard"
 import MarsCard from "@/components/nasa/MarsCard"
+import NeoCard from "@/components/nasa/NeoCard"
+import DonkiCard from "@/components/nasa/DonkiCard"
+
 
 
 
@@ -78,6 +81,16 @@ export default function SolarSystem() {
     const [isApodVisible, setIsApodVisible] = useState(true)
 
     const [isMarsVisible, setIsMarsVisible] = useState(true)
+
+    const [isNeoVisible, setIsNeoVisible] = useState(true)
+
+    const [isDonkiVisible, setIsDonkiVisible] = useState(true)
+
+
+    
+
+    
+
 
 
     
@@ -153,6 +166,37 @@ export default function SolarSystem() {
                 🚀 Ouvrir la photo Mars
             </button>
             )}
+
+            {/* NEO card */}
+
+
+            {isNeoVisible && <NeoCard onClose={() => setIsNeoVisible(false)} />}
+
+            {!isNeoVisible && (
+            <button
+                onClick={() => setIsNeoVisible(true)}
+                className="fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
+                title="Réouvrir les infos NEO"
+            >
+                ☄️ Données des astéroïdes
+            </button>
+            )}
+
+            {/* DONKI card */}
+
+            {isDonkiVisible && <DonkiCard onClose={() => setIsDonkiVisible(false)} />}
+
+            {!isDonkiVisible && (
+            <button
+                onClick={() => setIsDonkiVisible(true)}
+                className="fixed top-24 left-1/2 -translate-x-1/2 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
+                title="Réouvrir les événements solaires"
+            >
+                🌞 Données DONKI
+            </button>
+            )}
+
+
 
 
             <Legend />
