@@ -1,12 +1,97 @@
-# React + Vite
+# 🌌 R3F Solar System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![GitHub stars](https://img.shields.io/github/stars/jjteoh-thewebdev/r3f-solar-system?style=social)](https://github.com/jjteoh-thewebdev/r3f-solar-system/stargazers)
+[![GitHub license](https://img.shields.io/github/license/jjteoh-thewebdev/r3f-solar-system)](https://github.com/jjteoh-thewebdev/r3f-solar-system/blob/main/LICENSE)
 
-Currently, two official plugins are available:
+[Live Preview](https://r3f-solar-system-three.vercel.app/)
+<div align="center">
+    <img src="preview.gif" />
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+An interactive 3D visualization of our solar system built with React Three Fiber (R3F) and Next.js. Explore planets, learn about their characteristics, and watch educational videos about each celestial body. Inspired by: [Eyes On The Solar System](https://eyes.nasa.gov/apps/solar-system/)
+
+
+## ✨ Features
+
+- 🌍 Realistic 3D planet models with accurate textures
+- 🛸 Interactive orbital movements and rotations
+- 🎵 Background ambient music with controls
+- 🎥 Educational videos for each planet
+- 🔍 Detailed information cards for each celestial body
+- 🎮 Intuitive camera controls for exploration
+
+## 🚀 Tech Stack
+
+- [Next.js](https://nextjs.org/) - React framework
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - Three.js React renderer
+- [Three.js](https://threejs.org/) - 3D graphics library
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+
+## 📦 Installation
+
+Make sure you have [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) installed.
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jjteoh-thewebdev/r3f-solar-system.git
+   cd r3f-solar-system
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🎮 Controls
+
+- **Mouse Drag**: Orbit around the solar system
+- **Scroll**: Zoom in/out
+- **Click**: Select planet to view details
+- **Space**: Toggle background music
+- **Ctrl + ↑/↓**: Adjust music volume
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Credits
+
+- Planet textures from [Solar System Scope](https://www.solarsystemscope.com/textures/)
+- Astronomy info from [NASA](https://science.nasa.gov/solar-system/planets/)
+- Background music by [Clavier Clavier](https://pixabay.com/users/clavier-music-16027823/) from [Pixabay](https://pixabay.com/)
+- Educational videos from [Crash Course](https://thecrashcourse.com/)
+- Loading screen inspired by: [css-loader](https://github.com/vineethtrv/css-loader)
+
+
+## Future Roadmap
+- Zoom in planet
+- Moon, statelit
+- Major asteroids, meteroids, rocket incidents
+- Optimization: Implement level of detail (LOD) - load item closer to camera first
+
+
+## 👨‍💻 Author
+
+[@jjteoh-thewebdev](https://github.com/jjteoh-thewebdev)
+
+Disclaimer: AI-assistant tools were used during the development.
+
+Copilot: 
+- [v0 by Vercel](https://v0.dev/) for initial structure
+- [Claude 3.7-sonnet](https://claude.ai/) for code assist
+- [Cursor](https://www.cursor.com/) main development IDE
+
+---
+
+⭐️ Star this repo if you like it!
