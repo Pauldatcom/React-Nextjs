@@ -2,7 +2,6 @@
 
 export async function getApodData() {
   const API_KEY = process.env.NEXT_PUBLIC_NASA_API_KEY;
-  // console.log(API_KEY)
   const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("APOD fetch failed");

@@ -37,7 +37,6 @@ export default function Legend() {
                         <p className="text-sm mt-6">
                             Music by <a className="underline text-blue-400 hover:text-blue-300" href="https://pixabay.com/users/clavier-music-16027823/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=310690">Clavier Clavier</a> from <a className="underline text-blue-400 hover:text-blue-300" href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=310690">Pixabay</a>
                         </p>
-                        <p className="text-sm">Developed by <a className="underline text-blue-500" href="https://github.com/jjteoh-thewebdev">JJTeoh</a> with ❤️</p>
                     </CardContent>
                 </Card>
             )}
