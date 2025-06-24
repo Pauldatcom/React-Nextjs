@@ -1,97 +1,92 @@
 # 🌌 R3F Solar System
 
-[![GitHub stars](https://img.shields.io/github/stars/jjteoh-thewebdev/r3f-solar-system?style=social)](https://github.com/jjteoh-thewebdev/r3f-solar-system/stargazers)
-[![GitHub license](https://img.shields.io/github/license/jjteoh-thewebdev/r3f-solar-system)](https://github.com/jjteoh-thewebdev/r3f-solar-system/blob/main/LICENSE)
-
-[Live Preview](https://r3f-solar-system-three.vercel.app/)
 <div align="center">
     <img src="preview.gif" />
 </div>
 
+Une visualisation interactive 3D du système solaire développée avec React Three Fiber (R3F) et Next.js. Explorez les planètes, découvrez leurs caractéristiques et visionnez des vidéos éducatives sur chaque corps céleste. Inspiré par [Eyes On The Solar System](https://eyes.nasa.gov/apps/solar-system/).
 
+---
 
-An interactive 3D visualization of our solar system built with React Three Fiber (R3F) and Next.js. Explore planets, learn about their characteristics, and watch educational videos about each celestial body. Inspired by: [Eyes On The Solar System](https://eyes.nasa.gov/apps/solar-system/)
+## ✨ Fonctionnalités
 
+- 🌍 Modèles 3D réalistes des planètes avec textures précises
+- 🛸 Mouvement orbital et rotation animés
+- 🎵 Musique d’ambiance avec contrôle
+- 🎥 Vidéos éducatives par planète
+- 🔍 Fiches d'information interactives
+- 🎮 Contrôles de navigation fluides
 
-## ✨ Features
+---
 
-- 🌍 Realistic 3D planet models with accurate textures
-- 🛸 Interactive orbital movements and rotations
-- 🎵 Background ambient music with controls
-- 🎥 Educational videos for each planet
-- 🔍 Detailed information cards for each celestial body
-- 🎮 Intuitive camera controls for exploration
+## 🚀 Stack Technique
 
-## 🚀 Tech Stack
+- [Next.js](https://nextjs.org/) – Framework React
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) – Rendu Three.js en React
+- [Three.js](https://threejs.org/) – Librairie 3D
+- [TypeScript](https://www.typescriptlang.org/) – Typage statique
+- [Tailwind CSS](https://tailwindcss.com/) – Style
+- [shadcn/ui](https://ui.shadcn.com/) – Composants UI
 
-- [Next.js](https://nextjs.org/) - React framework
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - Three.js React renderer
-- [Three.js](https://threejs.org/) - 3D graphics library
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [shadcn/ui](https://ui.shadcn.com/) - UI components
+---
 
 ## 📦 Installation
 
-Make sure you have [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) installed.
+Assurez-vous d'avoir [Node.js](https://nodejs.org/) et [pnpm](https://pnpm.io/) installés.
 
-1. Clone the repository:
+1. Cloner le repo :
    ```bash
-   git clone https://github.com/jjteoh-thewebdev/r3f-solar-system.git
+   git clone https://github.com/ton-utilisateur/r3f-solar-system.git
    cd r3f-solar-system
    ```
 
-2. Install dependencies:
+2. Installer les dépendances :
    ```bash
    pnpm install
    ```
 
-3. Start the development server:
+3. Lancer le serveur local :
    ```bash
    pnpm dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🎮 Controls
-
-- **Mouse Drag**: Orbit around the solar system
-- **Scroll**: Zoom in/out
-- **Click**: Select planet to view details
-- **Space**: Toggle background music
-- **Ctrl + ↑/↓**: Adjust music volume
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Credits
-
-- Planet textures from [Solar System Scope](https://www.solarsystemscope.com/textures/)
-- Astronomy info from [NASA](https://science.nasa.gov/solar-system/planets/)
-- Background music by [Clavier Clavier](https://pixabay.com/users/clavier-music-16027823/) from [Pixabay](https://pixabay.com/)
-- Educational videos from [Crash Course](https://thecrashcourse.com/)
-- Loading screen inspired by: [css-loader](https://github.com/vineethtrv/css-loader)
-
-
-## Future Roadmap
-- Zoom in planet
-- Moon, statelit
-- Major asteroids, meteroids, rocket incidents
-- Optimization: Implement level of detail (LOD) - load item closer to camera first
-
-
-## 👨‍💻 Author
-
-[@jjteoh-thewebdev](https://github.com/jjteoh-thewebdev)
-
-Disclaimer: AI-assistant tools were used during the development.
-
-Copilot: 
-- [v0 by Vercel](https://v0.dev/) for initial structure
-- [Claude 3.7-sonnet](https://claude.ai/) for code assist
-- [Cursor](https://www.cursor.com/) main development IDE
+4. Ouvrir [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
 ---
 
-⭐️ Star this repo if you like it!
+## 🎮 Contrôles
+
+- **Drag souris** : Orbit autour du système solaire
+- **Scroll** : Zoom
+- **Click** : Sélectionner une planète
+- **Espace** : Activer/désactiver la musique
+- **Ctrl + ↑/↓** : Volume
+
+---
+
+## 📝 Licence
+
+Projet sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour les détails.
+
+---
+
+## 🙏 Crédits
+
+- Textures planétaires : [Solar System Scope](https://www.solarsystemscope.com/textures/)
+- Données scientifiques : [NASA](https://science.nasa.gov/solar-system/planets/)
+- Musique : [Clavier Clavier](https://pixabay.com/users/clavier-music-16027823/) via [Pixabay](https://pixabay.com/)
+- Vidéos pédagogiques : [Crash Course](https://thecrashcourse.com/)
+- Inspiration loading screen : [css-loader](https://github.com/vineethtrv/css-loader)
+
+---
+
+## 🛣️ Prochaines étapes
+
+- Zoom sur chaque planète
+- Intégration de lunes et satellites
+- Ajout d’astéroïdes, météores, incidents spatiaux
+- Optimisation : niveau de détail (LOD)
+
+---
+
+**🧠 Ce projet est initialement basé sur une version développée par [@jjteoh-thewebdev](https://github.com/jjteoh-thewebdev).**
