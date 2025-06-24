@@ -16,8 +16,15 @@ import FullscreenButton from "./fullscreen-button"
 import LoadingScreen from "./loading-screen"
 import AudioButton from "./audio-button"
 import ApodCard from "@/components/nasa/ApodCard"
+import MarsCard from "@/components/nasa/MarsCard"
+
+
 
 export default function SolarSystem() {
+
+    
+
+    
     const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null)
     const [selectedSun, setSelectedSun] = useState<SunData | null>(null)
     const [isInfoVisible, setIsInfoVisible] = useState(false)
@@ -65,7 +72,15 @@ export default function SolarSystem() {
             setSelectedSun(null)
         }, 300)
     }
+
+
+    // State to manage visibility of the APOD card
     const [isApodVisible, setIsApodVisible] = useState(true)
+
+    const [isMarsVisible, setIsMarsVisible] = useState(true)
+
+
+    
 
 
     return (
@@ -114,6 +129,7 @@ export default function SolarSystem() {
 
             
             {/* Si masquée → affiche un bouton de réouverture */}
+
             {!isApodVisible && (
             <button
                 onClick={() => setIsApodVisible(true)}
@@ -121,6 +137,20 @@ export default function SolarSystem() {
                 title="Réouvrir l'image APOD"
             >
                 📸 Ouvrir l'image du jour
+            </button>
+            )}
+
+            {/* Mars Rover card */}
+            {isMarsVisible && <MarsCard onClose={() => setIsMarsVisible(false)} />}
+
+            {/* Si masquée → bouton de réouverture */}
+            {!isMarsVisible && (
+            <button
+                onClick={() => setIsMarsVisible(true)}
+                className="fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
+                title="Réouvrir la photo Mars Rover"
+            >
+                🚀 Ouvrir la photo Mars
             </button>
             )}
 
@@ -144,5 +174,8 @@ export default function SolarSystem() {
             )}
         </div>
     )
+
+    
 }
+
 
