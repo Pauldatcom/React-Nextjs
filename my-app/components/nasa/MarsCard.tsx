@@ -37,7 +37,7 @@ export default function MarsCard({ onClose }: MarsCardProps) {
       />
 
       {/* Card centrée */}
-      <Card className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] max-w-[90vw] max-h-[80vh] z-50 shadow-2xl backdrop-blur border border-border bg-background/95 overflow-hidden">
+      <Card className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] max-w-[90vw] max-h-[80vh] z-50 shadow-2xl backdrop-blur border border-border bg-background/95 overflow-hidden transition duration-200 hover:contrast-125 hover:bg-background/80">
         <CardHeader className="relative">
           <CardTitle className="text-lg">Rover: {photo.rover.name}</CardTitle>
           <CardDescription>
@@ -55,8 +55,8 @@ export default function MarsCard({ onClose }: MarsCardProps) {
           <Image
             src={photo.img_src}
             alt={`Mars photo from ${photo.camera.full_name}`}
-            width={600}
-            height={400}
+            width={700}
+            height={500}
             className="rounded object-cover w-full h-48 mb-4"
           />
         </CardContent>

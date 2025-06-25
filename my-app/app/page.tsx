@@ -10,12 +10,6 @@ export default function Home() {
       <HeaderTitle />
       <SolarSystem />
       <Link
-        href="/galaxy-map"
-        className="absolute top-4 right-4 z-50 bg-white/10 text-white px-4 py-2 rounded-md backdrop-blur-md hover:bg-white/20 transition"
-      >
-        🌌 Carte Galactique
-      </Link>
-      <Link
         href="/"
         className="absolute top-4 left-4 z-50 bg-white/10 text-white px-4 py-2 rounded-md backdrop-blur-md hover:bg-white/20 transition"
       >

@@ -8,6 +8,7 @@ interface GalaxyControlsProps {
   isTopView: boolean;
   setIsTopView: Dispatch<SetStateAction<boolean>>;
   onZoomToPlanet: () => void;
+  onGalaxyView: () => void;
 }
 
 export default function GalaxyControls({
@@ -16,28 +17,36 @@ export default function GalaxyControls({
   isTopView,
   setIsTopView,
   onZoomToPlanet,
+  onGalaxyView,
 }: GalaxyControlsProps) {
   return (
-    <div className="absolute top-4 left-4 space-y-3 z-50 p-4 bg-black/40 backdrop-blur-md rounded-xl shadow-md border border-white/10 text-white">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex flex-row gap-8 z-50 p-4 bg-black/40 backdrop-blur-md rounded-xl shadow-md border border-white/10 text-white">
       <button
-        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md transition"
+        className="w-48 h-16 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700 rounded-xl transition flex items-center justify-center"
         onClick={() => setSpeedMultiplier((prev) => (prev >= 7 ? 1 : prev * 2))}
       >
         🔁 Vitesse x{speedMultiplier}
       </button>
 
       <button
-        className="px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition"
+        className="w-48 h-16 text-lg font-semibold bg-pink-600 hover:bg-pink-700 rounded-xl transition flex items-center justify-center"
         onClick={() => setIsTopView(!isTopView)}
       >
         🔄 Vue : {isTopView ? "Dessus" : "3D"}
       </button>
 
       <button
-        className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-md transition"
+        className="w-48 h-16 text-lg font-semibold bg-yellow-600 hover:bg-yellow-700 rounded-xl transition flex items-center justify-center"
         onClick={onZoomToPlanet}
       >
         🔍 Zoom Planète
+      </button>
+
+      <button
+        className="w-48 h-16 text-lg font-semibold bg-blue-700 hover:bg-blue-800 rounded-xl transition flex items-center justify-center"
+        onClick={onGalaxyView}
+      >
+        🌌 Vue Galaxie
       </button>
     </div>
   );
