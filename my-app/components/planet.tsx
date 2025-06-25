@@ -13,16 +13,17 @@ import type { PlanetData } from "@/lib/planet-data";
 import * as THREE from "three";
 import { useMobile } from "@/lib/hooks/use-mobile";
 import { useOptimizedTexture } from "@/lib/hooks/use-optimized-texture";
+import { a, type SpringValue } from "@react-spring/three";
 
 interface PlanetProps {
   planet: PlanetData;
   onClick: () => void;
   speedMultiplier?: number;
+  customScale?: SpringValue<[number, number, number]>; // ✅ correction ici
 }
 
-// On utilise forwardRef pour exposer la position du mesh à l'extérieur
 const Planet = forwardRef<THREE.Mesh, PlanetProps>(
-  ({ planet, onClick, speedMultiplier = 1 }, ref) => {
+  ({ planet, onClick, speedMultiplier = 1, customScale }, ref) => {
     const planetRef = useRef<THREE.Mesh>(null);
     const orbitRef = useRef<THREE.Group>(null);
     const textRef = useRef<THREE.Group>(null);
@@ -99,7 +100,6 @@ const Planet = forwardRef<THREE.Mesh, PlanetProps>(
                 color: "#4a90e2",
                 transparent: true,
                 opacity: 0.3,
-                linewidth: 1,
               })
             )
           }
@@ -107,12 +107,13 @@ const Planet = forwardRef<THREE.Mesh, PlanetProps>(
 
         <group ref={orbitRef}>
           <group position={[planet.distanceFromSun, 0, 0]}>
-            <mesh
+            <a.mesh
               ref={planetRef}
               onClick={onClick}
               onPointerOver={() => setHovered(true)}
               onPointerOut={() => setHovered(false)}
               geometry={sphereGeometry}
+              scale={customScale ?? [1, 1, 1]} // ✅ compatible avec SpringValue
             >
               <meshStandardMaterial
                 map={texture}
@@ -121,7 +122,7 @@ const Planet = forwardRef<THREE.Mesh, PlanetProps>(
                 roughness={0.5}
                 metalness={0.1}
               />
-            </mesh>
+            </a.mesh>
 
             {planet.name === "Saturn" && ringGeometry && (
               <mesh ref={ringRef} geometry={ringGeometry}>

@@ -6,7 +6,7 @@ import { OrbitControls, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { useSpring } from "@react-spring/three";
 
-import Planet from "@/components/Planet";
+import Planet from "@/components/planet";
 import { planets } from "@/lib/planet-data";
 import type { PlanetData } from "@/lib/planet-data";
 
