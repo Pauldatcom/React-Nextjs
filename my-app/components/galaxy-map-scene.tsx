@@ -7,6 +7,8 @@ import SpiralGalaxy from "./SpiralGalaxy";
 import Galaxy from "./galaxy";
 // import * as THREE from "three";
 import HaloArmsLayer from "./HaloArmsLayer";
+import galaxies from "../public/data/galaxies.json";
+import GalaxyPoint from "./GalaxyPoint";
 
 export default function GalaxyMapScene() {
   return (
@@ -57,6 +59,9 @@ export default function GalaxyMapScene() {
 
       {/* Contrôle caméra */}
       <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
+      {galaxies.map((g) => (
+        <GalaxyPoint key={g.id} galaxy={g} />
+      ))}
     </Canvas>
   );
 }

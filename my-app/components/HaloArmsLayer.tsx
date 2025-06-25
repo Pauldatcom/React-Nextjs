@@ -8,11 +8,11 @@ export default function HaloArmsLayer() {
   const ref = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.PointsMaterial>(null);
 
-  const arms = 3;
-  const starsPerArm = 1000;
-  const radius = 150;
+  const arms = 2;
+  const starsPerArm = 3000;
+  const radius = 130;
   const spin = 4.0;
-  const spread = 1.2;
+  const spread = 3.5;
 
   const geometry = useMemo(() => {
     const total = arms * starsPerArm;
