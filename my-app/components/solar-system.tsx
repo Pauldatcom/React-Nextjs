@@ -4,6 +4,7 @@ import { useMobile } from "@/lib/hooks/use-mobile";
 import { type PlanetData, planets, sunData, SunData } from "@/lib/planet-data";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import Galaxy from "@/components/galaxy";
@@ -40,6 +41,7 @@ export default function SolarSystem() {
 
   const controlsRef = useRef(null);
   const isMobile = useMobile();
+  const router = useRouter();
 
   const cameraPosition: [number, number, number] = isMobile
     ? [0, 20, 40]
@@ -149,16 +151,6 @@ export default function SolarSystem() {
         />
       </Canvas>
 
-      <Legend />
-
-      <GalaxyControls
-        speedMultiplier={speedMultiplier}
-        setSpeedMultiplier={setSpeedMultiplier}
-        isTopView={isTopView}
-        setIsTopView={setIsTopView}
-        onZoomToPlanet={onZoomToPlanet}
-      />
-
       {/* Side Menu */}
       <SideMenu
         onOpenApod={() => setIsApodVisible(true)}
@@ -188,6 +180,19 @@ export default function SolarSystem() {
       {isMarsVisible && <MarsCard onClose={() => setIsMarsVisible(false)} />}
       {isNeoVisible && <NeoCard onClose={() => setIsNeoVisible(false)} />}
       {isDonkiVisible && <DonkiCard onClose={() => setIsDonkiVisible(false)} />}
+
+      {/* Contrôles bas de page : GalaxyControls au centre, Legend en bas à gauche */}
+      <GalaxyControls
+        speedMultiplier={speedMultiplier}
+        setSpeedMultiplier={setSpeedMultiplier}
+        isTopView={isTopView}
+        setIsTopView={setIsTopView}
+        onZoomToPlanet={onZoomToPlanet}
+        onGalaxyView={() => {
+          router.push("/galaxy-map");
+        }}
+      />
+      <Legend />
     </div>
   );
 }
