@@ -12,7 +12,7 @@ import GalaxyPoint from "./GalaxyPoint";
 
 export default function GalaxyMapScene() {
   return (
-    <Canvas camera={{ position: [0, 40, 120], fov: 70 }}>
+    <Canvas camera={{ position: [0, 0, 250], fov: 40 }}>
       {/* Lumière globale */}
       <ambientLight intensity={0.5} />
       <pointLight position={[0, 0, 0]} intensity={2} color="#fff8e1" />
