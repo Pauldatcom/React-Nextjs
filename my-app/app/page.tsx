@@ -1,22 +1,10 @@
 "use client";
 
-// Add Transition style Star Wars
-
 import HeaderTitle from "@/components/HeaderTitle";
 import SolarSystem from "@/components/solar-system";
-import HyperspaceTransition from "@/components/HyperspaceTransition";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
-  const [showTransition, setShowTransition] = useState(false);
-  const router = useRouter();
-
-  const handleClick = () => {
-    setShowTransition(true);
-  };
-
   return (
     <main className="w-full h-screen relative bg-black overflow-hidden">
       <HeaderTitle />
@@ -27,10 +15,6 @@ export default function Home() {
       >
         ⬅ Retour
       </Link>
-
-      {showTransition && (
-        <HyperspaceTransition onComplete={() => router.push("/galaxy-map")} />
-      )}
     </main>
   );
 }
