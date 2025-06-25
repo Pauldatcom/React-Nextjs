@@ -6,6 +6,8 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { useSpring } from "@react-spring/three";
 
 import Galaxy from "@/components/galaxy";
 import GalaxyControls from "@/components/GalaxyControls";
@@ -24,6 +26,7 @@ import DonkiCard from "@/components/nasa/DonkiCard";
 import MarsCard from "@/components/nasa/MarsCard";
 import NeoCard from "@/components/nasa/NeoCard";
 import SideMenu from "@/components/side-menu";
+import ReverseAsteroid from "@/components/ReverseAsteroid";
 
 export default function SolarSystem() {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
@@ -38,6 +41,28 @@ export default function SolarSystem() {
   const [isMarsVisible, setIsMarsVisible] = useState(false);
   const [isNeoVisible, setIsNeoVisible] = useState(false);
   const [isDonkiVisible, setIsDonkiVisible] = useState(false);
+
+  const [isSaturnVisible, setIsSaturnVisible] = useState(true);
+  const [saturnExploded, setSaturnExploded] = useState(false);
+  const saturnRef = useRef<THREE.Mesh>(null);
+
+  const { scale: saturnScale } = useSpring<{ scale: [number, number, number] }>(
+    {
+      scale: saturnExploded ? [0, 0, 0] : [1, 1, 1],
+      config: { mass: 1, tension: 120, friction: 14 },
+      onChange: ({ value }) => {
+        if (
+          saturnRef.current &&
+          value.scale &&
+          Array.isArray(value.scale) &&
+          value.scale.length === 3
+        ) {
+          const [x, y, z] = value.scale;
+          saturnRef.current.scale.set(x, y, z);
+        }
+      },
+    }
+  );
 
   const controlsRef = useRef(null);
   const isMobile = useMobile();
@@ -79,7 +104,6 @@ export default function SolarSystem() {
     }, 300);
   };
 
-  // 🔍 Zoom vers la planète sélectionnée
   const onZoomToPlanet = () => {
     if (!selectedPlanet || !controlsRef.current) return;
     const { distanceFromSun, size } = selectedPlanet;
@@ -88,7 +112,6 @@ export default function SolarSystem() {
     cam.lookAt(distanceFromSun, 0, 0);
   };
 
-  // 🎥 Changement de vue
   useEffect(() => {
     if (!controlsRef.current) return;
     const cam = (controlsRef.current as any).object;
@@ -134,14 +157,28 @@ export default function SolarSystem() {
         <Galaxy />
         <Sun onClick={handleSunClick} />
 
-        {planets.map((planet) => (
-          <Planet
-            key={planet.name}
-            planet={planet}
-            onClick={() => handlePlanetClick(planet)}
-            speedMultiplier={speedMultiplier}
-          />
-        ))}
+        {planets.map((planet) => {
+          const isSaturn = planet.name === "Saturn";
+          if (isSaturn && !isSaturnVisible) return null;
+
+          return (
+            <Planet
+              key={planet.name}
+              planet={planet}
+              onClick={() => handlePlanetClick(planet)}
+              speedMultiplier={speedMultiplier}
+              ref={isSaturn ? saturnRef : undefined}
+              customScale={isSaturn ? saturnScale : undefined}
+            />
+          );
+        })}
+
+        <ReverseAsteroid
+          // visible={isSaturnVisible}
+          visible={isSaturnVisible}
+          delay={4} // délai avant que l’astéroïde commence à bouger
+          speed={0.3} // vitesse linéaire
+        />
 
         <OrbitControls
           ref={controlsRef}
@@ -151,7 +188,6 @@ export default function SolarSystem() {
         />
       </Canvas>
 
-      {/* Side Menu */}
       <SideMenu
         onOpenApod={() => setIsApodVisible(true)}
         onOpenMars={() => setIsMarsVisible(true)}
@@ -175,23 +211,19 @@ export default function SolarSystem() {
         />
       )}
 
-      {/* Pop-ups centrés */}
       {isApodVisible && <ApodCard onClose={() => setIsApodVisible(false)} />}
       {isMarsVisible && <MarsCard onClose={() => setIsMarsVisible(false)} />}
       {isNeoVisible && <NeoCard onClose={() => setIsNeoVisible(false)} />}
       {isDonkiVisible && <DonkiCard onClose={() => setIsDonkiVisible(false)} />}
 
-      {/* Contrôles bas de page : GalaxyControls au centre, Legend en bas à gauche */}
       <GalaxyControls
         speedMultiplier={speedMultiplier}
         setSpeedMultiplier={setSpeedMultiplier}
         isTopView={isTopView}
         setIsTopView={setIsTopView}
         onZoomToPlanet={onZoomToPlanet}
-        onGalaxyView={() => {
-          router.push("/galaxy-map");
-        }}
       />
+
       <Legend />
     </div>
   );
