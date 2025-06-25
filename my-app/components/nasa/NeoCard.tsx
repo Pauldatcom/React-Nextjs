@@ -37,7 +37,7 @@ export default function NeoCard({ onClose }: NeoCardProps) {
       />
 
       {/* Card centrée */}
-      <Card className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] max-w-[90vw] max-h-[80vh] z-50 shadow-2xl backdrop-blur border border-border bg-background/95 overflow-hidden">
+      <Card className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] max-w-[90vw] max-h-[80vh] z-50 shadow-2xl backdrop-blur border border-border bg-background/95 overflow-hidden transition duration-200 hover:contrast-125 hover:bg-background/80">
         <CardHeader className="relative">
           <CardTitle className="text-lg">Astéroïde : {neo.name}</CardTitle>
           <CardDescription>
