@@ -21,7 +21,7 @@ export default function GalaxyControls({
     <div className="absolute top-4 left-4 space-y-3 z-50 p-4 bg-black/40 backdrop-blur-md rounded-xl shadow-md border border-white/10 text-white">
       <button
         className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md transition"
-        onClick={() => setSpeedMultiplier((prev) => (prev >= 4 ? 1 : prev * 2))}
+        onClick={() => setSpeedMultiplier((prev) => (prev >= 7 ? 1 : prev * 2))}
       >
         🔁 Vitesse x{speedMultiplier}
       </button>

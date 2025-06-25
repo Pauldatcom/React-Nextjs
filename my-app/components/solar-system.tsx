@@ -1,27 +1,28 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { useMobile } from "@/lib/hooks/use-mobile";
 import { type PlanetData, planets, sunData, SunData } from "@/lib/planet-data";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
 
+import Galaxy from "@/components/galaxy";
+import GalaxyControls from "@/components/GalaxyControls";
 import Planet from "@/components/planet";
 import PlanetInfo from "@/components/planet-info";
 import Sun from "@/components/sun";
-import Galaxy from "@/components/galaxy";
-import SunInfo from "./sun-info";
-import Legend from "./legend";
-import PerformanceMonitor from "./performance-monitor";
-import FullscreenButton from "./fullscreen-button";
-import LoadingScreen from "./loading-screen";
 import AudioButton from "./audio-button";
-import GalaxyControls from "@/components/GalaxyControls";
+import FullscreenButton from "./fullscreen-button";
+import Legend from "./legend";
+import LoadingScreen from "./loading-screen";
+import PerformanceMonitor from "./performance-monitor";
+import SunInfo from "./sun-info";
 
 import ApodCard from "@/components/nasa/ApodCard";
+import DonkiCard from "@/components/nasa/DonkiCard";
 import MarsCard from "@/components/nasa/MarsCard";
 import NeoCard from "@/components/nasa/NeoCard";
-import DonkiCard from "@/components/nasa/DonkiCard";
+import SideMenu from "@/components/side-menu";
 
 export default function SolarSystem() {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
@@ -32,10 +33,10 @@ export default function SolarSystem() {
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
   const [isTopView, setIsTopView] = useState(false);
 
-  const [isApodVisible, setIsApodVisible] = useState(true);
-  const [isMarsVisible, setIsMarsVisible] = useState(true);
-  const [isNeoVisible, setIsNeoVisible] = useState(true);
-  const [isDonkiVisible, setIsDonkiVisible] = useState(true);
+  const [isApodVisible, setIsApodVisible] = useState(false);
+  const [isMarsVisible, setIsMarsVisible] = useState(false);
+  const [isNeoVisible, setIsNeoVisible] = useState(false);
+  const [isDonkiVisible, setIsDonkiVisible] = useState(false);
 
   const controlsRef = useRef(null);
   const isMobile = useMobile();
@@ -158,6 +159,14 @@ export default function SolarSystem() {
         onZoomToPlanet={onZoomToPlanet}
       />
 
+      {/* Side Menu */}
+      <SideMenu
+        onOpenApod={() => setIsApodVisible(true)}
+        onOpenMars={() => setIsMarsVisible(true)}
+        onOpenNeo={() => setIsNeoVisible(true)}
+        onOpenDonki={() => setIsDonkiVisible(true)}
+      />
+
       {selectedPlanet && (
         <PlanetInfo
           planet={selectedPlanet}
@@ -174,49 +183,11 @@ export default function SolarSystem() {
         />
       )}
 
+      {/* Pop-ups centrés */}
       {isApodVisible && <ApodCard onClose={() => setIsApodVisible(false)} />}
-      {!isApodVisible && (
-        <button
-          onClick={() => setIsApodVisible(true)}
-          className="fixed bottom-4 right-4 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
-          title="Réouvrir l'image APOD"
-        >
-          📸 Ouvrir l'image du jour
-        </button>
-      )}
-
       {isMarsVisible && <MarsCard onClose={() => setIsMarsVisible(false)} />}
-      {!isMarsVisible && (
-        <button
-          onClick={() => setIsMarsVisible(true)}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
-          title="Réouvrir la photo Mars Rover"
-        >
-          🚀 Ouvrir la photo Mars
-        </button>
-      )}
-
       {isNeoVisible && <NeoCard onClose={() => setIsNeoVisible(false)} />}
-      {!isNeoVisible && (
-        <button
-          onClick={() => setIsNeoVisible(true)}
-          className="fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
-          title="Réouvrir les infos NEO"
-        >
-          ☄️ Données des astéroïdes
-        </button>
-      )}
-
       {isDonkiVisible && <DonkiCard onClose={() => setIsDonkiVisible(false)} />}
-      {!isDonkiVisible && (
-        <button
-          onClick={() => setIsDonkiVisible(true)}
-          className="fixed top-24 left-1/2 -translate-x-1/2 px-4 py-2 text-sm rounded-full bg-muted text-foreground shadow-md border hover:bg-muted/80 transition z-50"
-          title="Réouvrir les événements solaires"
-        >
-          🌞 Données DONKI
-        </button>
-      )}
     </div>
   );
 }

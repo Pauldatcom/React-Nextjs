@@ -1,15 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { fetchMarsRoverPhoto, MarsPhoto } from "@/lib/api/nasa/mars";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardDescription,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
+import { fetchMarsRoverPhoto, MarsPhoto } from "@/lib/api/nasa/mars";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface MarsCardProps {
   onClose: () => void;
@@ -29,35 +29,43 @@ export default function MarsCard({ onClose }: MarsCardProps) {
   if (loading || !photo) return null;
 
   return (
-    <Card className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[400px] z-10 shadow-xl backdrop-blur border border-border bg-background/90">
-      <CardHeader className="relative">
-        <CardTitle>Rover: {photo.rover.name}</CardTitle>
-        <CardDescription>
-          {photo.camera.full_name} — {photo.earth_date}
-        </CardDescription>
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"
-          aria-label="Fermer"
-        >
-          ✕
-        </button>
-      </CardHeader>
-      <CardContent>
-        <Image
-          src={photo.img_src}
-          alt={`Mars photo from ${photo.camera.full_name}`}
-          width={600}
-          height={400}
-          className="rounded object-cover max-h-60 w-full"
-          priority
-        />
-      </CardContent>
-      <CardFooter>
-        <p className="text-sm text-muted-foreground">
-          Photo envoyée par Curiosity
-        </p>
-      </CardFooter>
-    </Card>
+    <>
+      {/* Overlay sombre */}
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+        onClick={onClose}
+      />
+
+      {/* Card centrée */}
+      <Card className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] max-w-[90vw] max-h-[80vh] z-50 shadow-2xl backdrop-blur border border-border bg-background/95 overflow-hidden">
+        <CardHeader className="relative">
+          <CardTitle className="text-lg">Rover: {photo.rover.name}</CardTitle>
+          <CardDescription>
+            {photo.camera.full_name} — {photo.earth_date}
+          </CardDescription>
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-2 text-muted-foreground hover:text-foreground bg-background/80 rounded-full w-8 h-8 flex items-center justify-center hover:bg-background transition-colors"
+            aria-label="Fermer"
+          >
+            ✕
+          </button>
+        </CardHeader>
+        <CardContent className="overflow-y-auto max-h-[60vh]">
+          <Image
+            src={photo.img_src}
+            alt={`Mars photo from ${photo.camera.full_name}`}
+            width={600}
+            height={400}
+            className="rounded object-cover w-full h-48 mb-4"
+          />
+        </CardContent>
+        <CardFooter>
+          <p className="text-sm text-muted-foreground">
+            Photo envoyée par Curiosity
+          </p>
+        </CardFooter>
+      </Card>
+    </>
   );
 }
