@@ -28,6 +28,9 @@ import NeoCard from "@/components/nasa/NeoCard";
 import SideMenu from "@/components/side-menu";
 import ReverseAsteroid from "@/components/ReverseAsteroid";
 
+import { fetchExoplanetFromAPI } from "@/lib/hooks/fetch-exoplanet";
+import Star from "@/components/star";
+
 export default function SolarSystem() {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
   const [selectedSun, setSelectedSun] = useState<SunData | null>(null);
@@ -36,6 +39,9 @@ export default function SolarSystem() {
   const [isLoading, setIsLoading] = useState(true);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
   const [isTopView, setIsTopView] = useState(false);
+  const [extraPlanets, setExtraPlanets] = useState<PlanetData[]>([]);
+  const [extraStars, setExtraStars] = useState<any[]>([]);
+  const [inputName, setInputName] = useState("Kepler-22 b");
 
   const [isApodVisible, setIsApodVisible] = useState(false);
   const [isMarsVisible, setIsMarsVisible] = useState(false);
@@ -112,10 +118,66 @@ export default function SolarSystem() {
     cam.lookAt(distanceFromSun, 0, 0);
   };
 
+  const handleFetchByName = async () => {
+    try {
+      const system = await fetchExoplanetFromAPI(inputName);
+      if (!system) return alert("Planète introuvable");
+      setExtraPlanets((prev) => [...prev, system.planet]);
+      setExtraStars((prev) => [...prev, system.star]);
+    } catch (e) {
+      console.error(e);
+      alert("Erreur lors de la récupération");
+    }
+  };
+
   useEffect(() => {
+    const autoLoadFirstExoplanets = async () => {
+      const names = [
+        "Kepler-22 b",
+        "Kepler-186 f",
+        "TRAPPIST-1 b",
+        "TOI-700 d",
+        "Gliese 581 d",
+        "HD 40307 g",
+        "Kepler-62 f",
+        "55 Cancri e",
+        "Proxima Centauri b",
+        "K2-18 b",
+        "LHS 1140 b",
+        "Kepler-442 b",
+        "Kepler-452 b",
+        "Wolf 1061 c",
+        "Ross 128 b",
+        "GJ 667 C c",
+        "GJ 1214 b",
+        "Kepler-69 c",
+        "Kapteyn b",
+        "HD 189733 b",
+        "HD 209458 b",
+        "Kepler-1649 c",
+        "Kepler-62 e",
+        "TRAPPIST-1 e",
+        "TRAPPIST-1 f",
+        "TRAPPIST-1 g",
+        "TRAPPIST-1 h",
+        "TOI-1231 b",
+        "Kepler-90 g",
+        "HD 219134 b",
+      ];
+
+      for (const name of names) {
+        const system = await fetchExoplanetFromAPI(name);
+        if (system) {
+          setExtraPlanets((prev) => [...prev, system.planet]);
+          setExtraStars((prev) => [...prev, system.star]);
+        }
+      }
+    };
+
+    autoLoadFirstExoplanets();
+
     if (!controlsRef.current) return;
     const cam = (controlsRef.current as any).object;
-
     if (isTopView) {
       cam.position.set(0, 60, 0);
       cam.lookAt(0, 0, 0);
@@ -123,7 +185,7 @@ export default function SolarSystem() {
       cam.position.set(...cameraPosition);
       cam.lookAt(0, 0, 0);
     }
-  }, [isTopView]);
+  }, []);
 
   return (
     <div className="relative w-full h-full">
@@ -132,6 +194,24 @@ export default function SolarSystem() {
       )}
       <FullscreenButton />
       <AudioButton />
+
+      <div className="absolute top-4 left-4 z-50 bg-black/60 text-white p-4 rounded flex flex-col gap-2">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Nom de l’exoplanète"
+            value={inputName}
+            onChange={(e) => setInputName(e.target.value)}
+            className="text-black px-2 py-1 rounded"
+          />
+          <button
+            onClick={handleFetchByName}
+            className="bg-white text-black px-3 py-1 rounded"
+          >
+            Ajouter
+          </button>
+        </div>
+      </div>
 
       <Canvas
         camera={{
@@ -173,12 +253,20 @@ export default function SolarSystem() {
           );
         })}
 
-        <ReverseAsteroid
-          // visible={isSaturnVisible}
-          visible={isSaturnVisible}
-          delay={4} // délai avant que l’astéroïde commence à bouger
-          speed={0.3} // vitesse linéaire
-        />
+        {extraPlanets.map((planet) => (
+          <Planet
+            key={planet.id}
+            planet={planet}
+            onClick={() => handlePlanetClick(planet)}
+            speedMultiplier={speedMultiplier}
+          />
+        ))}
+
+        {extraStars.map((star) => (
+          <Star key={star.id} star={star} />
+        ))}
+
+        <ReverseAsteroid visible={isSaturnVisible} delay={4} speed={0.3} />
 
         <OrbitControls
           ref={controlsRef}
