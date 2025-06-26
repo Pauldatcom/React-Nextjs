@@ -39,9 +39,10 @@ export default function SolarSystem() {
   const [isLoading, setIsLoading] = useState(true);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
   const [isTopView, setIsTopView] = useState(false);
-  const [extraPlanets, setExtraPlanets] = useState<PlanetData[]>([]);
+  const [allPlanets, setAllPlanets] = useState<PlanetData[]>([]);
+  const [filteredPlanets, setFilteredPlanets] = useState<PlanetData[]>([]);
   const [extraStars, setExtraStars] = useState<any[]>([]);
-  const [inputName, setInputName] = useState("Kepler-22 b");
+  const [inputName, setInputName] = useState("");
 
   const [isApodVisible, setIsApodVisible] = useState(false);
   const [isMarsVisible, setIsMarsVisible] = useState(false);
@@ -118,63 +119,17 @@ export default function SolarSystem() {
     cam.lookAt(distanceFromSun, 0, 0);
   };
 
-  const handleFetchByName = async () => {
-    try {
-      const system = await fetchExoplanetFromAPI(inputName);
-      if (!system) return alert("Planète introuvable");
-      setExtraPlanets((prev) => [...prev, system.planet]);
-      setExtraStars((prev) => [...prev, system.star]);
-    } catch (e) {
-      console.error(e);
-      alert("Erreur lors de la récupération");
-    }
-  };
-
+  // Charger toutes les exoplanètes au chargement, sans filtrage serveur
   useEffect(() => {
-    const autoLoadFirstExoplanets = async () => {
-      const names = [
-        "Kepler-22 b",
-        "Kepler-186 f",
-        "TRAPPIST-1 b",
-        "TOI-700 d",
-        "Gliese 581 d",
-        "HD 40307 g",
-        "Kepler-62 f",
-        "55 Cancri e",
-        "Proxima Centauri b",
-        "K2-18 b",
-        "LHS 1140 b",
-        "Kepler-442 b",
-        "Kepler-452 b",
-        "Wolf 1061 c",
-        "Ross 128 b",
-        "GJ 667 C c",
-        "GJ 1214 b",
-        "Kepler-69 c",
-        "Kapteyn b",
-        "HD 189733 b",
-        "HD 209458 b",
-        "Kepler-1649 c",
-        "Kepler-62 e",
-        "TRAPPIST-1 e",
-        "TRAPPIST-1 f",
-        "TRAPPIST-1 g",
-        "TRAPPIST-1 h",
-        "TOI-1231 b",
-        "Kepler-90 g",
-        "HD 219134 b",
-      ];
-
-      for (const name of names) {
-        const system = await fetchExoplanetFromAPI(name);
-        if (system) {
-          setExtraPlanets((prev) => [...prev, system.planet]);
-          setExtraStars((prev) => [...prev, system.star]);
-        }
+    async function loadPlanets() {
+      const data = await fetchExoplanetFromAPI();
+      if (data) {
+        setAllPlanets(data.planets);
+        setFilteredPlanets(data.planets);
+        setIsLoading(false);
       }
-    };
-
-    autoLoadFirstExoplanets();
+    }
+    loadPlanets();
 
     if (!controlsRef.current) return;
     const cam = (controlsRef.current as any).object;
@@ -186,6 +141,18 @@ export default function SolarSystem() {
       cam.lookAt(0, 0, 0);
     }
   }, []);
+
+  // Filtrer localement selon inputName
+  const handleSearch = () => {
+    if (!inputName) {
+      setFilteredPlanets(allPlanets);
+      return;
+    }
+    const filtered = allPlanets.filter((planet) =>
+      planet.name.toLowerCase().includes(inputName.toLowerCase())
+    );
+    setFilteredPlanets(filtered);
+  };
 
   return (
     <div className="relative w-full h-full">
@@ -199,16 +166,16 @@ export default function SolarSystem() {
         <div className="flex gap-2">
           <input
             type="text"
-            placeholder="Nom de l’exoplanète"
+            placeholder="Search for a planet"
             value={inputName}
             onChange={(e) => setInputName(e.target.value)}
             className="text-black px-2 py-1 rounded"
           />
           <button
-            onClick={handleFetchByName}
+            onClick={handleSearch}
             className="bg-white text-black px-3 py-1 rounded"
           >
-            Ajouter
+            Filter
           </button>
         </div>
       </div>
@@ -237,13 +204,13 @@ export default function SolarSystem() {
         <Galaxy />
         <Sun onClick={handleSunClick} />
 
-        {planets.map((planet) => {
+        {planets.map((planet, index) => {
           const isSaturn = planet.name === "Saturn";
           if (isSaturn && !isSaturnVisible) return null;
 
           return (
             <Planet
-              key={planet.name}
+              key={planet.id ? `${planet.id}-${index}` : `planet-${index}`}
               planet={planet}
               onClick={() => handlePlanetClick(planet)}
               speedMultiplier={speedMultiplier}
@@ -253,17 +220,20 @@ export default function SolarSystem() {
           );
         })}
 
-        {extraPlanets.map((planet) => (
+        {filteredPlanets.map((planet, index) => (
           <Planet
-            key={planet.id}
+            key={planet.id ? `${planet.id}-${index}` : `extra-planet-${index}`}
             planet={planet}
             onClick={() => handlePlanetClick(planet)}
             speedMultiplier={speedMultiplier}
           />
         ))}
 
-        {extraStars.map((star) => (
-          <Star key={star.id} star={star} />
+        {extraStars.map((star, index) => (
+          <Star
+            key={star.id ? `${star.id}-${index}` : `extra-star-${index}`}
+            star={star}
+          />
         ))}
 
         <ReverseAsteroid visible={isSaturnVisible} delay={4} speed={0.3} />

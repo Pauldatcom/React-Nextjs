@@ -5,32 +5,24 @@ import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import SpiralGalaxy from "./SpiralGalaxy";
 import Galaxy from "./galaxy";
-// import * as THREE from "three";
 import HaloArmsLayer from "./HaloArmsLayer";
-import galaxies from "../public/data/galaxies.json";
-import GalaxyPoint from "./GalaxyPoint";
+import { useExoplanets } from "@/lib/hooks/useExoplanets";
 
 export default function GalaxyMapScene() {
+  const { data: exoplanets, loading } = useExoplanets();
+
   return (
     <Canvas camera={{ position: [0, 0, 250], fov: 40 }}>
-      {/* Lumière globale */}
       <ambientLight intensity={0.5} />
       <pointLight position={[0, 0, 0]} intensity={2} color="#fff8e1" />
 
-      {/* Fond étoilé et spirale */}
       <Galaxy />
-      <SpiralGalaxy />
-      <HaloArmsLayer />
 
-      {/* <mesh>
-        <sphereGeometry args={[170, 64, 64]} />
-        <meshBasicMaterial
-          color="#69b3f7"
-          transparent
-          opacity={0.05}
-          side={THREE.BackSide}
-        />
-      </mesh> */}
+      {/* SpiralGalaxy gère les exoplanètes et leurs points */}
+      <SpiralGalaxy exoplanets={exoplanets} />
+
+      {/* Halo conservé */}
+      <HaloArmsLayer />
 
       {/* Centre lumineux */}
       <mesh position={[0, 0, 0]}>
@@ -42,13 +34,12 @@ export default function GalaxyMapScene() {
         />
       </mesh>
 
-      {/* Halo flou */}
+      {/* Halo */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[15, 32, 32]} />
         <meshBasicMaterial color="#ffccaa" transparent opacity={0.15} />
       </mesh>
 
-      {/* Post-processing */}
       <EffectComposer>
         <Bloom
           intensity={1.5}
@@ -57,11 +48,7 @@ export default function GalaxyMapScene() {
         />
       </EffectComposer>
 
-      {/* Contrôle caméra */}
       <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-      {galaxies.map((g) => (
-        <GalaxyPoint key={g.id} galaxy={g} />
-      ))}
     </Canvas>
   );
 }
