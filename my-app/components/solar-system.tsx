@@ -2,12 +2,12 @@
 
 import { useMobile } from "@/lib/hooks/use-mobile";
 import { type PlanetData, planets, sunData, SunData } from "@/lib/planet-data";
+import { useSpring } from "@react-spring/three";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { useSpring } from "@react-spring/three";
 
 import Galaxy from "@/components/galaxy";
 import GalaxyControls from "@/components/GalaxyControls";
@@ -25,11 +25,12 @@ import ApodCard from "@/components/nasa/ApodCard";
 import DonkiCard from "@/components/nasa/DonkiCard";
 import MarsCard from "@/components/nasa/MarsCard";
 import NeoCard from "@/components/nasa/NeoCard";
-import SideMenu from "@/components/side-menu";
 import ReverseAsteroid from "@/components/ReverseAsteroid";
+import SideMenu from "@/components/side-menu";
 
-import { fetchExoplanetFromAPI } from "@/lib/hooks/fetch-exoplanet";
 import Star from "@/components/star";
+import { fetchExoplanetFromAPI } from "@/lib/hooks/fetch-exoplanet";
+import { useClickSound } from "@/lib/hooks/use-click-sound";
 
 export default function SolarSystem() {
   const [selectedPlanet, setSelectedPlanet] = useState<PlanetData | null>(null);
@@ -97,10 +98,25 @@ export default function SolarSystem() {
     setIsInfoVisible(true);
   };
 
+  const playClickSound = useClickSound();
+
   const handlePlanetClick = (planet: PlanetData) => {
+    playClickSound();
     setSelectedPlanet(planet);
     setSelectedSun(null);
     setIsInfoVisible(true);
+
+    if (planet.name === "Earth") {
+      setEarthClickCount((count) => {
+        const newCount = count + 1;
+        if (newCount === 2) {
+          setShowEasterEgg(true);
+          setTimeout(() => setShowEasterEgg(false), 9000);
+          return 0; // reset après déclenchement
+        }
+        return newCount;
+      });
+    }
   };
 
   const handleCloseInfo = () => {
@@ -154,6 +170,9 @@ export default function SolarSystem() {
     setFilteredPlanets(filtered);
   };
 
+  const [earthClickCount, setEarthClickCount] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+
   return (
     <div className="relative w-full h-full">
       {isLoading && (
@@ -161,6 +180,12 @@ export default function SolarSystem() {
       )}
       <FullscreenButton />
       <AudioButton />
+
+      {showEasterEgg && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/80 text-white text-4xl font-bold">
+          🌍 Tu as trouvé l'easter egg de la Terre ! 🌍
+        </div>
+      )}
 
       <div className="absolute top-4 left-4 z-50 bg-black/60 text-white p-4 rounded flex flex-col gap-2">
         <div className="flex gap-2">

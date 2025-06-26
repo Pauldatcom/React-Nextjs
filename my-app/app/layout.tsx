@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import "./globals.css";
 import { AudioProvider } from "@/lib/audio-context";
+import type { Metadata } from "next";
+import { Orbitron } from "next/font/google";
+import "./globals.css";
 
-
-const geist = Geist({ subsets: ["latin"] });
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: "R3F Solar System",
@@ -18,11 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={geist.className}>
-        <AudioProvider>
-          {children}
-        </AudioProvider>
-
+      <body className={orbitron.className}>
+        <AudioProvider>{children}</AudioProvider>
       </body>
     </html>
   );

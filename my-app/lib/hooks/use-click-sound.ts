@@ -4,7 +4,7 @@ export function useClickSound() {
   const playClickSound = useCallback(async () => {
     try {
       const audio = new Audio("/sounds/click.mp3");
-      audio.volume = 0.1; // Volume modéré pour les clics
+      audio.volume = 0.2; // Volume modéré pour les clics
 
       // Attendre que l'audio soit chargé
       await audio.load();
