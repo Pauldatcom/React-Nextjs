@@ -2,8 +2,8 @@
 
 // Component to create a hyperspace transition effect with stars moving towards the viewer
 
+import { PointMaterial, Points } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -53,11 +53,26 @@ function StarField({ onComplete }: { onComplete: () => void }) {
   );
 }
 
+// Fonction pour jouer le son hyperspace
+function playHyperspaceSound() {
+  try {
+    const audio = new Audio("/sounds/hyperspace.mp3");
+    audio.volume = 0.7;
+    audio.play();
+  } catch (error) {
+    console.warn("Impossible de jouer le son hyperspace:", error);
+  }
+}
+
 export default function HyperspaceTransition({
   onComplete,
 }: {
   onComplete: () => void;
 }) {
+  useEffect(() => {
+    playHyperspaceSound();
+  }, []);
+
   return (
     <div className="fixed inset-0 z-50 bg-black">
       <Canvas>
