@@ -5,11 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pauldatcom/r3f-solar-system.git"
+    "url": "https://github.com/Pauldatcom/React-Nextjs.git"
   },
-  "homepage": "https://github.com/Pauldatcom/r3f-solar-system#readme",
+  "homepage": "https://github.com/Pauldatcom/React-Nextjs#readme",
   "bugs": {
-    "url": "https://github.com/Pauldatcom/r3f-solar-system/issues"
+    "url": "https://github.com/Pauldatcom/React-Nextjs/issues"
   },
   "scripts": {
     "dev": "next dev --turbopack",
