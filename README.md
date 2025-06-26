@@ -61,8 +61,9 @@ Assurez-vous d'avoir [Node.js](https://nodejs.org/) et [pnpm](https://pnpm.io/) 
 
 1. Cloner le repo :
    ```bash
-   git clone https://github.com/ton-utilisateur/r3f-solar-system.git
-   cd r3f-solar-system
+   git clone https://github.com/Pauldatcom/React-Nextjs.git
+   cd React-Nextjs
+   cd my-app
    ```
 
 2. Installer les dépendances :
