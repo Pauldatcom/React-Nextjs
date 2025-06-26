@@ -30,7 +30,7 @@ export function useExoplanets() {
     }
 
     console.log("🔥 useEffect déclenché — appel API");
-    fetch("http://localhost:8000/api/exoplanets")
+    fetch("https://glorious-eagerness-production.up.railway.app/api/exoplanets")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP ${res.status} - ${res.statusText}`);

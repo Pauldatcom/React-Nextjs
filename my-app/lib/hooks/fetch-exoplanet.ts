@@ -6,7 +6,7 @@ export async function fetchExoplanetFromAPI(): Promise<{
   stars: Star[];
 } | null> {
   try {
-    const res = await fetch(`http://localhost:8000/api/exoplanets`);
+    const res = await fetch(`https://glorious-eagerness-production.up.railway.app/api/exoplanets`);
     const data = await res.json();
     if (!data || data.error) return null;
 
