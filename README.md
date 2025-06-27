@@ -1,6 +1,5 @@
 # 🌌 R3F Solar System
 
-
 Une visualisation interactive 3D du système solaire développée avec React Three Fiber (R3F) et Next.js. Explorez les planètes, découvrez leurs caractéristiques et visionnez des vidéos éducatives sur chaque corps céleste. Inspiré par [Eyes On The Solar System](https://eyes.nasa.gov/apps/solar-system/).
 
 ---
@@ -15,13 +14,13 @@ Une visualisation interactive 3D du système solaire développée avec React Thr
 - 🎮 Contrôles de navigation fluides
 - 🌀 Vitesse orbitale dynamique (accélération des planètes possible)
 - 🎵 Musique d’ambiance intégrée à l’interface (bouton mobile & interface planètes)
--  🎥 Lecteur vidéos éducatives pour chaque planète (Crash Course, YouTube)
--  📖 Fiches d'information interactives par corps céleste
--  🌌 Skybox réaliste avec texture HD de la Voie Lactée
--  🗺️ Nouvelle page "Galaxie" avec :
-Système stellaire interactif
-Chargement dynamique de planètes via fichier galaxies.json
-Points lumineux interactifs dans la galaxie (GalaxyPoint)
+- 🎥 Lecteur vidéos éducatives pour chaque planète (Crash Course, YouTube)
+- 📖 Fiches d'information interactives par corps céleste
+- 🌌 Skybox réaliste avec texture HD de la Voie Lactée
+- 🗺️ Nouvelle page "Galaxie" avec :
+  Système stellaire interactif
+  Chargement dynamique de planètes via fichier galaxies.json
+  Points lumineux interactifs dans la galaxie (GalaxyPoint)
 
 ---
 
@@ -35,6 +34,7 @@ Points lumineux interactifs dans la galaxie (GalaxyPoint)
 - [shadcn/ui](https://ui.shadcn.com/) – Composants UI
 
 ---
+
 🔌 Intégrations API
 NASA Mars Rover : Photos des rovers martiens
 
@@ -42,8 +42,7 @@ NASA DONKI : Suivi d’éruptions solaires
 
 Exoplanet Archive (TRAPPIST-1) : À venir
 
-
-## Ajout 
+## Ajout
 
 🌕 Ajout des lunes pour Jupiter, Saturne…
 
@@ -65,18 +64,23 @@ Assurez-vous d'avoir [Node.js](https://nodejs.org/) et [pnpm](https://pnpm.io/) 
    cd React-Nextjs
    cd my-app
    ```
+2. Créer un .env pour avoir accés au service de la NASA
 
-2. Installer les dépendances :
+NEXT_PUBLIC_NASA_API_KEY=Votre_clef_API
+
+3. Installer les dépendances :
+
    ```bash
    pnpm install
    ```
 
-3. Lancer le serveur local :
+4. Lancer le serveur local :
+
    ```bash
    pnpm dev
    ```
 
-4. Ouvrir [http://localhost:3000](http://localhost:3000) dans votre navigateur.
+5. Ouvrir [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
 ---
 
@@ -103,11 +107,11 @@ Projet sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour les détails.
 - Musique : [Clavier Clavier](https://pixabay.com/users/clavier-music-16027823/) via [Pixabay](https://pixabay.com/)
 - Vidéos pédagogiques : [Crash Course](https://thecrashcourse.com/)
 - Inspiration loading screen : [css-loader](https://github.com/vineethtrv/css-loader)
-- Design & base : @jjteoh-thewebdev 
+- Design & base : @jjteoh-thewebdev
 
-## License 
+## License
 
-- CCO pour les textures 
+- CCO pour les textures
 
 ---
 
