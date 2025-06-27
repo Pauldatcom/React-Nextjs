@@ -10,35 +10,36 @@ export async function fetchExoplanetFromAPI(): Promise<{
     const data = await res.json();
     if (!data || data.error) return null;
 
-    // Ici, on mappe chaque élément en Planet et Star (en supposant que star info n'est pas dans l'API,
-    // tu peux adapter ou ajouter une autre API plus tard)
-    const planets: Planet[] = data.map((item: any) => {
-      // Définition de texture et rotationSpeed comme avant, par exemple
+    const safeData = data.filter((item: any) => item.pl_name?.toLowerCase() !== "sun");
+
+    const planets: Planet[] = safeData.map((item: any) => {
       let planetRotationSpeed = 0.01;
       let planetTexture = "/textures/planets/2k_earth_daymap.jpg";
 
       const type = item.pl_type ?? "Default";
+      let planetType: "Gas Giant" | "Terrestrial" = "Terrestrial";
 
       switch (type) {
         case "Gas Giant":
           planetTexture = "/textures/planets/2k_jupiter.jpg";
           planetRotationSpeed = 0.03;
+          planetType = "Gas Giant";
           break;
         case "Rocky":
           planetTexture = "/textures/planets/2k_mars.jpg";
           planetRotationSpeed = 0.01;
+          planetType = "Terrestrial";
           break;
         default:
           planetTexture = "/textures/planets/2k_earth_daymap.jpg";
           planetRotationSpeed = 0.01;
+          planetType = "Terrestrial";
       }
 
       return new Planet({
-        id:
-          item.pl_name?.toLowerCase().replace(/\s+/g, "-") ??
-          `planet-${Math.random()}`,
+        id: item.pl_name?.toLowerCase().replace(/\s+/g, "-") ?? `planet-${Math.random()}`,
         name: item.pl_name,
-        type: "Exoplanet",
+        type: planetType,
         size: item.pl_rade ?? 1,
         distanceFromSun: item.pl_orbsmax ? item.pl_orbsmax * 100 : 50,
         realDistanceFromSun: item.pl_orbsmax ? item.pl_orbsmax * 149.6 : 149.6,
@@ -54,8 +55,7 @@ export async function fetchExoplanetFromAPI(): Promise<{
       });
     });
 
-    // Si tu n'as pas de stars dans l'API, tu peux retourner un tableau vide ou générer des stars
-    const stars: Star[] = []; // ou une map similaire si tu as des données stars
+    const stars: Star[] = [];
 
     return { planets, stars };
   } catch (error) {

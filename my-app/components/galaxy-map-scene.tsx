@@ -7,9 +7,28 @@ import SpiralGalaxy from "./SpiralGalaxy";
 import Galaxy from "./galaxy";
 import HaloArmsLayer from "./HaloArmsLayer";
 import { useExoplanets } from "@/lib/hooks/useExoplanets";
+import GalaxyPlanet from "./GalaxyPlanet";
 
 export default function GalaxyMapScene() {
   const { data: exoplanets, loading } = useExoplanets();
+
+  const exoPlanetsToGalaxyPlanets = (data: any[]) => {
+    return data.slice(0, 4).map((exo, i) => ({
+      name: exo.pl_name || `Exo-${i + 1}`,
+      radius: 1.5,
+      position: [
+        Math.cos(i * Math.PI / 2) * 80,
+        Math.sin(i * Math.PI / 2) * 40,
+        Math.sin(i * 2) * 30,
+      ] as [number, number, number],
+      textureUrl: i % 2 === 0
+        ? "/textures/planets/2k_mars.jpg"
+        : "/textures/planets/2k_saturn.jpg",
+      description: `Découverte en ${exo.disc_year || "année inconnue"}`,
+      type: exo.pl_type || "Exoplanète",
+      distance_ly: exo.sy_dist?.toFixed(2) || "??",
+    }));
+  };
 
   return (
     <Canvas camera={{ position: [0, 0, 250], fov: 40 }}>
@@ -21,7 +40,12 @@ export default function GalaxyMapScene() {
       {/* SpiralGalaxy gère les exoplanètes et leurs points */}
       <SpiralGalaxy exoplanets={exoplanets} />
 
-      {/* Halo conservé */}
+      {/* ✅ Ajout des 4 planètes visuelles */}
+      {!loading &&
+        exoPlanetsToGalaxyPlanets(exoplanets || []).map((planet, i) => (
+          <GalaxyPlanet key={i} planet={planet} />
+        ))}
+
       <HaloArmsLayer />
 
       {/* Centre lumineux */}

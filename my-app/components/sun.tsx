@@ -28,7 +28,12 @@ export default function Sun({ onClick }: SunProps) {
     }, [isMobile])
 
     // Use optimized texture loading
-    const texture = useOptimizedTexture('/textures/2k_sun.jpg')
+    const texture = useMemo(() => {
+  const tex = new THREE.TextureLoader().load('/textures/2k_sun.jpg');
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}, []);
+
 
     // Create noise texture for surface activity
     const noiseTexture = useMemo(() => {

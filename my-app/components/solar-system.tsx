@@ -136,27 +136,27 @@ export default function SolarSystem() {
   };
 
   // Charger toutes les exoplanètes au chargement, sans filtrage serveur
-  useEffect(() => {
-    async function loadPlanets() {
-      const data = await fetchExoplanetFromAPI();
-      if (data) {
-        setAllPlanets(data.planets);
-        setFilteredPlanets(data.planets);
-        setIsLoading(false);
-      }
-    }
-    loadPlanets();
+  // useEffect(() => {
+  //   async function loadPlanets() {
+  //     const data = await fetchExoplanetFromAPI();
+  //     if (data) {
+  //       setAllPlanets(data.planets);
+  //       setFilteredPlanets(data.planets);
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   loadPlanets();
 
-    if (!controlsRef.current) return;
-    const cam = (controlsRef.current as any).object;
-    if (isTopView) {
-      cam.position.set(0, 60, 0);
-      cam.lookAt(0, 0, 0);
-    } else {
-      cam.position.set(...cameraPosition);
-      cam.lookAt(0, 0, 0);
-    }
-  }, []);
+  //   if (!controlsRef.current) return;
+  //   const cam = (controlsRef.current as any).object;
+  //   if (isTopView) {
+  //     cam.position.set(0, 60, 0);
+  //     cam.lookAt(0, 0, 0);
+  //   } else {
+  //     cam.position.set(...cameraPosition);
+  //     cam.lookAt(0, 0, 0);
+  //   }
+  // }, []);
 
   // Filtrer localement selon inputName
   const handleSearch = () => {
@@ -245,7 +245,7 @@ export default function SolarSystem() {
           );
         })}
 
-        {filteredPlanets.map((planet, index) => (
+        {/* {filteredPlanets.map((planet, index) => (
           <Planet
             key={planet.id ? `${planet.id}-${index}` : `extra-planet-${index}`}
             planet={planet}
@@ -259,7 +259,7 @@ export default function SolarSystem() {
             key={star.id ? `${star.id}-${index}` : `extra-star-${index}`}
             star={star}
           />
-        ))}
+        ))} */}
 
         <ReverseAsteroid visible={isSaturnVisible} delay={4} speed={0.3} />
 

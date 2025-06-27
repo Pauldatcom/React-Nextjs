@@ -23,20 +23,20 @@ export default function Galaxy() {
       </mesh>
 
       {/* Centre lumineux */}
-      <mesh position={[0, 0, 0]}>
+      {/* <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[6, 32, 32]} />
         <meshStandardMaterial
           color="#ffffcc"
           emissive="#ffffcc"
           emissiveIntensity={3}
         />
-      </mesh>
+      </mesh> */}
 
       {/* Halo doux */}
-      <mesh position={[0, 0, 0]}>
+      {/* <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[15, 32, 32]} />
         <meshBasicMaterial color="#ffccaa" transparent opacity={0.15} />
-      </mesh>
+      </mesh> */}
     </>
   );
 }
